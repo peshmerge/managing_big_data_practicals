@@ -1,4 +1,13 @@
 """
+written by 
+Manish Mishra s2801620
+Peshmerge Morad s2449471
+
+Our time is :
+real	0m8.440s
+user	0m13.460s
+sys	0m1.256s
+
 This computes the inverted index for a document base in  /data/doina/Gutenberg-EBooks.
 This program is written in Python3
 
@@ -25,5 +34,3 @@ filtered_words_iindex = words_iindex.filter(lambda item: len(item[1]) > 12).coll
 
 for (word, documents_list) in filtered_words_iindex:
     print(word)
-
-print(len(filtered_words_iindex))
