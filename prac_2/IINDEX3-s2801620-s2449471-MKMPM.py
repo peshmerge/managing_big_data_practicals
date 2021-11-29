@@ -38,5 +38,5 @@ words_iindex =  words_iindex.reduceByKey(lambda a,b:a|b)
 # filter and process all the above steps
 filtered_words_iindex = words_iindex.filter(lambda item: len(item[1]) > 12).collect()
 
-for (word, documents_list) in filtered_words_iindex.collect():
+for (word, documents_list) in filtered_words_iindex:
     print(word)
