@@ -3,7 +3,7 @@ This computes the inverted index for a document base in  /data/doina/Gutenberg-E
 This program is written in Python3
 
 To execute on a machine:
-    time spark-submit IINDEX3-s2801620-s2449471-MKMPM.py --conf "spark.pyspark.python=/usr/bin/python3.6" --conf "spark.pyspark.driver.python=/usr/bin/python3.6" 2> /dev/null
+    time spark-submit --conf "spark.pyspark.python=/usr/bin/python3.6" --conf "spark.pyspark.driver.python=/usr/bin/python3.6" IINDEX3-s2801620-s2449471-MKMPM.py 2> /dev/null
 """
 
 from pyspark import SparkContext
