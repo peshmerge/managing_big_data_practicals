@@ -21,13 +21,13 @@ from pyspark import SparkContext
 sc = SparkContext(appName="KNN-MKMPM")
 sc.setLogLevel("ERROR")
 # Load the data from the csv file
-rdd = sc.textFile("/data/doina/xyvalue.csv")
+rdd = sc.textFile("xyvalue.csv")
 
 # Calculate the euclidean distance between two points.
 def calc_dist(point1, point2):
     return ((point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2) ** (1 / 2)
 # Our input (hardcoded)
-input_point = (100, 100)
+input_point = (208.0,292.3)
 # The amount of K nearest neighbours for our KNN algorithm
 k = 100
 
@@ -38,5 +38,12 @@ values = rdd.map(lambda line: [float(point) for point in line.split(",")])
 values = values.map(lambda point: (point[2], calc_dist(input_point, [point[0], point[1]]))).collect()
 # Sort the returned element from the previous step based on the Euclidean distances
 values = sorted(values, key=lambda point: point[1])
-# Calculate the Inverse Distance Weight for the first K nearest neighbours (the predicted value).
-print(sum(val[0] / val[1] for val in values[:k]) / sum(1 / val[1] for val in values[:k]))
+# Get the first K nearest neighbours.
+values = values[:k]
+# If the distance is zero (the given point is already in the dataset)
+if values[0][1] == 0.:
+    # Return the value from the data set
+    print(values[0][0])
+else:
+    # Calculate the Inverse Distance Weight for the first K nearest neighbours (the predicted value).
+    print(sum(val[0]/val[1] for val in values)/sum(1/val[1] for val in values))
