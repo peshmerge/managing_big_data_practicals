@@ -4,15 +4,18 @@ Manish Mishra s2801620
 Peshmerge Morad s2449471
 
 Our time is :
-real    0m17.006s
-user    0m50.743s
-sys     0m3.017s
+real    0m16.574s
+user    0m51.801s
+sys     0m3.139s
 
 This computes the most also-bought games from amazon database in /data/doina/UCSD-Amazon-Data/meta_Video_Games.json.gz.
 This program is written in Python3
 
 To execute on a machine:
     time spark-submit --conf "spark.pyspark.python=/usr/bin/python3.6" --conf "spark.pyspark.driver.python=/usr/bin/python3.6" GAMES3-s2801620-s2449471-MKMPM.py 2> /dev/null
+
+Turns out this is the PlayStation 2 slim console! :D ## https://www.amazon.com/PlayStation-2-Console-Slim-PS2/dp/B00004TN9O
+at the price of US$999 and the year being 2021, it is for sure not on sale :P
 """
 
 from pyspark import SparkContext
@@ -37,7 +40,7 @@ top_also_bought = also_bought.groupBy('asin').count().orderBy('count', ascending
 # get the top also_bought product record from the dataframe
 top_record = df.filter(df.asin == top_also_bought).collect()[0]
 
-# pretty print the product record with some useful information only
+# pretty print the product record with useful information only
 print('Below are the details for the top also_bought product:')
 print("Title:\t" + str(top_record['title']))
 print("Brand:\t" + str(top_record['brand']))
@@ -51,5 +54,3 @@ print("Top sales rank:\t" + ', '.join(x[0]+" - "+str(x[1]) for x in top_record['
 # import pprint
 # pp = pprint.PrettyPrinter(indent=4)
 # pp.pprint(top_record.asDict())
-
-## Turns out this is the PlayStation 2 console! :D
