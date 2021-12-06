@@ -14,7 +14,7 @@ This program is written in Python3
 To execute on a machine:
     time spark-submit --conf "spark.pyspark.python=/usr/bin/python3.6" --conf "spark.pyspark.driver.python=/usr/bin/python3.6" GAMES3-s2801620-s2449471-MKMPM.py 2> /dev/null
 
-Turns out this is the PlayStation 2 slim console! :D ## https://www.amazon.com/PlayStation-2-Console-Slim-PS2/dp/B00004TN9O
+Turns out this is the PlayStation 2 slim console! :D ## https://www.amazon.com/PlayStation-2-Console-Slim-PS2/dp/B000TLU67W
 at the price of US$999 and the year being 2021, it is for sure not on sale :P
 """
 
