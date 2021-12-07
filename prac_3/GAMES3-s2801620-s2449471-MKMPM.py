@@ -40,17 +40,21 @@ top_also_bought = also_bought.groupBy('asin').count().orderBy('count', ascending
 # get the top also_bought product record from the dataframe
 top_record = df.filter(df.asin == top_also_bought).collect()[0]
 
-# pretty print the product record with useful information only
-print('Below are the details for the top also_bought product:')
-print("Title:\t" + str(top_record['title']))
-print("Brand:\t" + str(top_record['brand']))
-print("ASIN:\t" + str(top_record['asin']))
-print("Description:\t" + str(top_record['description']))
-print("Categories:\t" + ', '.join(top_record['categories'][0]))
-print("Price:\t" + str(top_record['price']))
-print("Top sales rank:\t" + ', '.join(x[0]+" - "+str(x[1]) for x in top_record['salesRank'].asDict().items() if x[1] != None))
+# # pretty print the product record with useful information only
+# print('Below are the details for the top also_bought product:')
+# print("Title:\t" + str(top_record['title']))
+# print("Brand:\t" + str(top_record['brand']))
+# print("ASIN:\t" + str(top_record['asin']))
+# print("Description:\t" + str(top_record['description']))
+# print("Categories:\t" + ', '.join(top_record['categories'][0]))
+# print("Price:\t" + str(top_record['price']))
+# print("Top sales rank:\t" + ', '.join(x[0]+" - "+str(x[1]) for x in top_record['salesRank'].asDict().items() if x[1] != None))
 
-## another way of pretty printing everything in the record
+# printing everything in the record
+for key, value in top_record.asDict().items():
+    print(str(key).encode('UTF-8') + ': ' + str(value).encode('UTF-8'))
+
+# # another way of pretty printing everything in the record using pprint library
 # import pprint
 # pp = pprint.PrettyPrinter(indent=4)
 # pp.pprint(top_record.asDict())
