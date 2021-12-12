@@ -4,9 +4,9 @@ Manish Mishra s2801620
 Peshmerge Morad s2449471
 
 Our time is :
-real    3m50.355s
-user    0m14.584s
-sys     0m3.170s
+real    3m34.713s
+user    0m14.922s
+sys     0m2.922s
 
 This program loads the web crawl JSON data from /data/doina/WebInsight/2020-07-13/ and /data/doina/WebInsight/2020-09-14/*,
 gathers the unique 'url' for each of the crawl and calculates the difference in 'fetch.textSize' and saves only this information
@@ -45,7 +45,7 @@ df2 = spark.read.json(last_crawl_loc)
 # url <- page URL
 
 # join condition 
-cond = [df1.url == df2.url, (df1.fetch.textSize > 0) | (df2.fetch.textSize > 0)]
+cond = [df1.url == df2.url]
 # joining the 2 loaded dataframes and only picking 'url', and 'textSize' from each of them
 dff = df1.join(df2, cond) \
 .select(df1.url, df1.fetch.textSize.alias('first_size'), df2.fetch.textSize.alias('last_size'))
