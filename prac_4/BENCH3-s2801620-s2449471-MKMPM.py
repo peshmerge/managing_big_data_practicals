@@ -24,13 +24,13 @@ from pyspark import SparkContext
 from pyspark.sql import SparkSession
 import pyspark.sql.functions as func
 
+executors = sys.argv[3]
 # fetch spark context and set log level to ERROR only
-sc = SparkContext(appName="BENCH-HASHTAGS-MKMPM")
+sc = SparkContext(appName="BENCH-HASHTAGS-" + executors)
 sc.setLogLevel("ERROR")
 
 # read all input files
 tweets_loc = sys.argv[1]
-# '/data/doina/Twitter-Archive.org/2020-01/0[1-2]/*/*.json.bz2'
 spark = SparkSession.builder.getOrCreate()
 df = spark.read.json(tweets_loc)
 
@@ -42,6 +42,6 @@ hashtags = hashtags.groupBy('hashtags').count().orderBy('count', ascending=False
 
 # always creates a new folder to write in (clean up your old folders though)
 now = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-output_dir = '' + sys.argv[2] + str(now)
+output_dir = '' + sys.argv[2] + '_' + executors + '_' + str(now)
 print('saving output to ' + output_dir)
 hashtags.coalesce(10).write.format('json').save(output_dir)
